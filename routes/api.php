@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LibrosController;
@@ -19,8 +20,29 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/libros', [LibrosController::class , 'getLibros']);
-Route::get('/libros/{id}', [LibrosController::class , 'getLibro']);
-Route::post('/libros', [LibrosController::class , 'createLibro']);
-Route::delete('/libros/{id}', [LibrosController::class , 'removeLibro']);
-Route::put('/libros/{id}', [LibrosController::class , 'updateLibro']);
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::post('login', [AuthController::class , 'login']);
+    Route::post('logout', [AuthController::class , 'logout']);
+    Route::post('refresh', [AuthController::class , 'refresh']);
+    Route::get('me', [AuthController::class , 'me']);
+    Route::post('register', [AuthController::class , 'register']);
+});
+
+
+
+Route::group([
+
+    'middleware' => 'auth:api'
+
+], function ($router) {
+    Route::get('/libros', [LibrosController::class , 'getLibros']);
+    Route::get('/libros/{id}', [LibrosController::class , 'getLibro']);
+    Route::post('/libros', [LibrosController::class , 'createLibro']);
+    Route::delete('/libros/{id}', [LibrosController::class , 'removeLibro']);
+    Route::put('/libros/{id}', [LibrosController::class , 'updateLibro']);
+});
