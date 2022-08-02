@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Libros;
+use App\Models\Libro;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -13,10 +13,10 @@ class LibrosController extends Controller
     public $dirDestinoImg = './img/';
 
     // GET 'libros'
-    public function getLibroS()
+    public function getLibros()
     {
 
-        $libros = Libros::all();
+        $libros = Libro::all();
 
         return response()->json([
             'status' => 'ok',
@@ -28,7 +28,7 @@ class LibrosController extends Controller
     public function getLibro($id)
     {
 
-        $libros = new Libros;
+        $libros = new Libro;
         $libro = $libros->find($id);
 
         return response()->json([
@@ -48,7 +48,7 @@ class LibrosController extends Controller
             $imagen = $request->file('imagen');
             $nuevoNombreArchivo = $this->manejoDeImagen($imagen);
 
-            $libro = new Libros;
+            $libro = new Libro;
             $libro->titulo = $request->titulo;
             $libro->imagen = ltrim($this->dirDestinoImg, '.') . $nuevoNombreArchivo;
 
@@ -61,7 +61,7 @@ class LibrosController extends Controller
         }
 
         Log::error('NO paso la validacion');
-        return response('', 400)->json([
+        return response()->json([
             'status' => 'error',
             'mensaje_error' => $this->mensaje_error
         ])->setStatusCode(400);
@@ -71,7 +71,7 @@ class LibrosController extends Controller
     public function removeLibro($id)
     {
 
-        $libro = Libros::find($id);
+        $libro = Libro::find($id);
 
         if ($libro) {
 
@@ -99,7 +99,7 @@ class LibrosController extends Controller
     public function updateLibro(Request $request, $id)
     {
 
-        $libro = Libros::find($id);
+        $libro = Libro::find($id);
 
         if ($request->hasFile('imagen') && $request->titulo && $libro) {
 
