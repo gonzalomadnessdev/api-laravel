@@ -15,8 +15,8 @@ class CreateAutoresTable extends Migration
     {
         Schema::create('autores', function (Blueprint $table) {
             $table->id();
-            $table->string('Nombre',100);
-            $table->string('Apellido',100);
+            $table->string('nombre',100);
+            $table->string('apellido',100);
             $table->timestamps();
         });
     }
