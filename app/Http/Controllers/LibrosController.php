@@ -16,12 +16,18 @@ class LibrosController extends Controller
     public function getLibros()
     {
 
-        $libros = Libro::all();
+        $libros = Libro::with('autor')->get();
 
         return response()->json([
             'status' => 'ok',
             'libros' => $libros
         ]);
+        // $libros = Libro::all();
+
+        // return response()->json([
+        //     'status' => 'ok',
+        //     'libros' => $libros
+        // ]);
     }
 
     //GET 'libros/{id}'
