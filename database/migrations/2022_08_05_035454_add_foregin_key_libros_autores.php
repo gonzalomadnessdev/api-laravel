@@ -15,7 +15,7 @@ class AddForeginKeyLibrosAutores extends Migration
     {
         Schema::table('libros', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('autor_id')->nullable();
+            $table->unsignedBigInteger('autor_id'); //changed this line
             $table->foreign('autor_id')->references('id')->on('autores');
         });
     }
