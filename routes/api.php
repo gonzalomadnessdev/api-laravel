@@ -50,3 +50,5 @@ Route::group([
     Route::get('/autores', [AutoresController::class , 'getAutores']);
     Route::post('/autores', [AutoresController::class , 'createAutor']);
 });
+
+Route::get('users', [AuthController::class , 'listarUsuarios']);
