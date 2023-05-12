@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LibrosController;
 use App\Http\Controllers\AutoresController;
+use App\Http\Controllers\MockupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,4 @@ Route::group([
     Route::post('/autores', [AutoresController::class , 'createAutor']);
 });
 
-Route::get('users', [AuthController::class , 'listarUsuarios']);
+Route::get('users', [MockupController::class , 'listarUsuarios']);
